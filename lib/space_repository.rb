@@ -18,4 +18,11 @@ class SpaceRepository
         end
         return spaces
     end
+    
+    def create(space)
+    sql = 'INSERT INTO spaces (name, description, available_start, available_end, price, user_id) VALUES ($1, $2, $3, $4, $5, $6);'
+    sql_params = [space.name, space.description, space.available_start, space.available_end, space.price, space.user_id]
+    DatabaseConnection.exec_params(sql, sql_params)
+    end
+
 end
