@@ -16,3 +16,6 @@ rspec
 # Run the server (better to do this in a separate terminal).
 rackup
 ```
+
+db names: makersbnb_test, makersbnb
+
