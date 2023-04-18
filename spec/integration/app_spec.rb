@@ -1,7 +1,6 @@
 require "spec_helper"
 require "rack/test"
 require_relative '../../app'
-require 'json'
 
 describe Application do
   # This is so we can use rack-test helper methods.
@@ -11,18 +10,36 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
-  # Write your integration tests below.
-  # If you want to split your integration tests
-  # accross multiple RSpec files (for example, have
-  # one test suite for each set of related features),
-  # you can duplicate this test file to create a new one.
-
 
   context 'GET /' do
-    it 'should get the homepage' do
+    it 'should display signup as the homepage' do
       response = get('/')
 
       expect(response.status).to eq(200)
+      expect(response.body).to include('<form method="POST" action="/">')
+      expect(response.body).to include('<input type ="text" name ="Email" required />')
+      expect(response.body).to include('<input type ="text" name ="Password" required />')
+      expect(response.body).to include('<input type ="text" name ="Password Confirmation" required />')
     end
   end
+
+  context 'GET /sessions/new' do
+    it 'should display login page' do
+      response = get('/sessions/new')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<form method="POST" action="/sessions/new">')
+      expect(response.body).to include('<input type ="text" name ="Email" required />')
+      expect(response.body).to include('<input type ="text" name ="Password" required />')
+    end
+  end
+
+  context 'POST /confirmation' do 
+    it 'should display account confirmation and save to database' do
+      post('/confirmation', email: 'user1@gmail.com', password: '12345')
+      expect(last_response).to be_redirect
+      follow_redirect!
+      expect(last_request.path).to eq('/confirmation')
+    end
+  end 
 end
