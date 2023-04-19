@@ -8,6 +8,7 @@ class SpaceRepository
         spaces = []
         result_set.each do |listing|
             space = Space.new
+            space.id = listing['id']
             space.name = listing['name']
             space.description = listing['description']
             space.available_start = listing['available_start']

@@ -2,7 +2,9 @@
 
 <% @spaces.each do |space| %>
   <div class="space">
-  <h3><%=space.name%></h3>
+  <a href="/spaces/<%=space.id%>">
+    <h3><%=space.name%></h3>
+  </a>
   <li>Description:</li>
   <%=space.description%>  
    <li>Available from:</li>
@@ -10,8 +12,8 @@
    <li>Available to:</li>
   <%= space.available_end%>  
   <li>Price per Night:</li>
-  <%=space.price%>  
+  <%=space.price%> 
+  <a href="/spaces/<%=space.id%>">Click here to view</a> 
     <hr>
   </div>
 <% end %>
-
