@@ -3,9 +3,12 @@ require 'sinatra/reloader'
 require_relative 'lib/database_connection'
 require_relative 'lib/space_repository.rb'
 
+DatabaseConnection.connect('makersbnb')
+
 class Application < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
+    also_reload "lib/space_repository"
   end
 
   get '/spaces' do

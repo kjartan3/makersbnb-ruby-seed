@@ -18,6 +18,14 @@ describe Application do
   # you can duplicate this test file to create a new one.
 
 
+  def reset_spaces_table
+    seed_sql = File.read("spec/seeds/tables_seeds.sql")
+    connection = PG.connect({ host: "127.0.0.1", dbname: "makersbnb_test" })
+    connection.exec(seed_sql)
+  end
+
+  before(:each) { reset_spaces_table}
+
   context 'GET /' do
     it 'should get the homepage' do
       response = get('/spaces')
