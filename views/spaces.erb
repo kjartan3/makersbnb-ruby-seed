@@ -1,0 +1,17 @@
+<h1>Book a Space</h1>
+
+<% @spaces.each do |space| %>
+  <div class="space">
+  <h3><%=space.name%></h3>
+  <li>Description:</li>
+  <%=space.description%>  
+   <li>Available from:</li>
+  <%= space.available_start%>  
+   <li>Available to:</li>
+  <%= space.available_end%>  
+  <li>Price per Night:</li>
+  <%=space.price%>  
+    <hr>
+  </div>
+<% end %>
+
