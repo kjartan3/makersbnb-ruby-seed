@@ -21,11 +21,27 @@ describe Application do
   context "GET /requests" do
     it 'should get the requests page' do
       response = get('/requests')
-
+      
       expect(response.status).to eq(200)
       expect(response.body).to include('<h1>Requests</h1>')
       expect(response.body).to include("<div>Requests I've made</div>")
       expect(response.body).to include("<div>Requests I've received</div>")
+      
+    end
+
+    it 'when you log in with user_id 3 you should display one request made' do
+      response = get('/requests')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include("<p>House of Dreams</p>")
+      expect(response.body).to include("<p>Approved</p>")
+      expect(response.body).to include("<p>2023-07-06</p>")
     end
   end
 end
+      
+    
+
+
+
+      
