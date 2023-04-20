@@ -31,16 +31,19 @@ class UserRepository
   end
 
   def find_by_email(email)
-    sql = 'SELECT id, email, password FROM users WHERE email = $1;'
+    sql = 'SELECT id, email,password FROM users WHERE email = $1;'
     result_set = DatabaseConnection.exec_params(sql, [email])
 
-    return nil if result_set.ntuples.zero?
-
-    user = User.new
-    user.id = result_set[0]['id']
-    user.email = result_set[0]['email']
-    user.password = result_set[0]['password']
-
-    return user
-  end
+    if result_set.ntuples.positive?
+      user_row = result_set[0]
+      user = User.new
+      user.id = user_row['id']
+      user.email_address = user_row['email_address']
+      user.username = user_row['username']
+      user.password = BCrypt::Password.new(user_row['password'])
+      return user
+    else
+      nil
+    end          
+  end  
 end

@@ -50,22 +50,30 @@ class Application < Sinatra::Base
     return erb(:sign_up_confirmation)
   end
 
+  get '/spaces' do
+    return erb(:spaces)
+  end
+
   post '/sessions/new' do
-    email = params[:email]
+    email_address = params[:email_address]
     password = params[:password]
 
-    user_repo = UserRepository.new
+    user = UserRepository.new.find_by_email(email_address)
 
-    user = user_repo.find_by_email(email)
-    stored_password = BCrypt::Password.new(user.password)
+    if user && user.password == password
+      session[:email_address] = user.email_address
+      #################################################################################################
+      # DO SOMETHING LIKE 
+      # repo = SpaceRepository.new
+      # @peeps = repo.all
+      # @user = user
+      # erb(:spaces)
+      #######################################################################################################
 
-    if stored_password == password
-      session[:user_id] = user.id
-      return erb(:login_success)
     else
-      return erb(:wrong_credentials)
+      erb(:wrong_credentials)
     end
-  end   
+  end  
 
   # post '/' do
   #   email = params[:email]
