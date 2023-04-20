@@ -3,7 +3,7 @@ require 'user_repository'
 require 'bcrypt'
 
 
-def reset_users_table
+def reset_users_table # <-- possibly may need to change the user table create SQL so it enables table reset... unsure of this however
   seed_sql = File.read('spec/seeds/tables_seeds.sql')
   connection = PG.connect({ host: '127.0.0.1', dbname: 'makersbnb_test' })
   connection.exec(seed_sql)

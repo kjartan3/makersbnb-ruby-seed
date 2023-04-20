@@ -52,9 +52,22 @@ describe Application do
       expect(user_repository.new.all.last.email).to eq('user@example.com')
       expect(user_repository.new.all.last.password).to eq('teddy')
     end
-  end
+  end   # ^ issue with database auto-rolling back to original number, so test expectation isnt consistent.
+        # additionally, solution to fixing reset_table issue in database was suggested in rspec test...
+        # To do this, first update your `reset_tables.rb` file to include the column:
+        #   def reset_tables(db) # Add to this existing method
+        #     # ...
+        #     db.run("DROP IF EXISTS TABLE ;")
+        #     db.run("CREATE TABLE  (id SERIAL PRIMARY KEY, ...);") # Include your column here
+        #     # ...
+        #   end
+        # Then run:
+        #   ruby reset_tables.rb
 
 
+
+  
+        
   #   xit 'save data to database' do
   #     post('/confirmation', email: 'user1@gmail.com', password: '12345')
   #     expect(last_response).to be_redirect

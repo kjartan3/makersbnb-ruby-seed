@@ -10,6 +10,7 @@ class Application < Sinatra::Base
     register Sinatra::Reloader
   end
  
+  # establishes database connection 
   conn = PG.connect(
     dbname: 'makersbnb_test', 
     host: '127.0.0.1'
