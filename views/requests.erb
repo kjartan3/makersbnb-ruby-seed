@@ -17,6 +17,9 @@
       <div>
         <% @inbound_bookings.each do |booking| %>
           <div class = "p1">
+            <!--It turned out that it has to be a single match for space.id == booking.space_id but when we look at tables
+            we saw that there are for the same space one is approved and one is rejected so the logic is quite difficult to 
+           understand. Ask if further information is needed. -->
             <%= @user_spaces.select {|space| space.id == booking.space_id}.first.name%>
             <br>
             <%= booking.date %>

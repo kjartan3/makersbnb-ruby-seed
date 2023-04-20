@@ -28,7 +28,7 @@ describe Application do
       expect(response.body).to include("Requests received")
       
     end
-
+     # until user is logged in, we cannot test this, so we need the login feature to be implemented first.
     xit 'when you log in with user_id 3 you should display one request made' do
       response = get('/requests/3')
 
@@ -37,7 +37,7 @@ describe Application do
       expect(response.body).to include("<p>Approved</p>")
       expect(response.body).to include("<p>2023-07-06</p>")
     end
-
+    # until user is logged in, we cannot test this, so we need the login feature to be implemented first.
     xit 'returns the list of bookings made from user2' do 
       post(
         "/login",
