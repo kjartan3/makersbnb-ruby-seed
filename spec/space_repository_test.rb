@@ -45,6 +45,5 @@ describe SpaceRepository do
     expect(space_list.length).to eq 4
     expect(space_list[3].description).to eq 'Original stone floors, with Bowser army optional'
   end
-
 end
 

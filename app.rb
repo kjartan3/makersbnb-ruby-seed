@@ -23,4 +23,24 @@ class Application < Sinatra::Base
   get '/spaces/new' do
     return erb(:spaces_new)
   end
+
+  post '/spaces' do
+    repo = SpaceRepository.new
+    new_space = Space.new
+    new_space.name = params[:name]
+    new_space.description = params[:description]
+    new_space.price = params[:price]
+    new_space.available_start = params[:available_start]
+    new_space.available_end = params[:available_end]
+    new_space.user_id = params[:user_id]
+    repo.create(new_space)
+
+    redirect '/spaces'
+  end
+
+  get '/spaces/:id' do
+    repo = SpaceRepository.new
+    @space = repo.find(params[:id])
+    return erb(:space_id)
+  end
 end

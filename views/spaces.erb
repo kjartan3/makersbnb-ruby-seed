@@ -1,4 +1,8 @@
+
 <h1>Book a Space</h1>
+<a href="/register %>"> <br>Register</a> 
+<a href="/spaces %>"> <br>Spaces</a> 
+<a href="/spaces %>"> <br>Sign out</a> 
 <br>
 <div class="submit">
   <a href="/spaces/new"><input type="submit" value="List a space"></a>
@@ -6,7 +10,7 @@
 <br>
 <div class="space">
   <h1>Spaces</h1>
-  <% @spaces.each do |space| %>
+  <% @spaces.reverse.each do |space| %>
     <li>Name:<a href="/spaces/<%= space.id %>"> <%= space.name %></a></li>
     <li>Description:</li>
     <%= space.description %>  
@@ -16,13 +20,13 @@
     <%= space.available_end %>  
     <li>Price per Night:</li>
     <%= space.price %> 
-    <a href="/spaces/<%= space.id %>"> <br>Click here to view</a> 
-    
+    <a href="/spaces/<%= space.id %>"> <br>Click here to view</a>
     <br>
     <br>
 
   <% end %>
 </div>
+
 
 
 
