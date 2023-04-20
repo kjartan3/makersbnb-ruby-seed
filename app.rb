@@ -3,19 +3,16 @@ require 'bcrypt'
 require 'sinatra'
 require 'sinatra/base'
 require 'sinatra/reloader'
-require_relative 'lib/user_repository.rb'
+require_relative 'lib/user_repository'
+require_relative 'lib/database_connection'
+
+DatabaseConnection.connect('makersbnb')
 
 
 class Application < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
   end
- 
-  # establishes database connection 
-  conn = PG.connect(
-    dbname: 'makersbnb', 
-    host: '127.0.0.1'
-  )
 
   enable :sessions
 
@@ -53,17 +50,22 @@ class Application < Sinatra::Base
     return erb(:sign_up_confirmation)
   end
 
-  # post '/' do
-  #   email = params['email']
-  #   password = ['password']
-  #   password_hash = BCrypt::Password.create(password) # this password_hash may need to be changed to .create(password_hash)
+  post '/sessions/new' do
+    email = params[:email]
+    password = params[:password]
 
-  #   UserRepository.new.create(email: email, password_hash: password_hash)
+    user_repo = UserRepository.new
 
-  #   redirect '/confirmation'
-  # end
+    user = user_repo.find_by_email(email)
+    stored_password = BCrypt::Password.new(user.password)
 
-   
+    if stored_password == password
+      session[:user_id] = user.id
+      return erb(:login_success)
+    else
+      return erb(:wrong_credentials)
+    end
+  end   
 
   # post '/' do
   #   email = params[:email]

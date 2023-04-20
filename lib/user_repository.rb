@@ -1,4 +1,5 @@
 require_relative 'user.rb'
+require 'bcrypt'
 
 class UserRepository 
   def all 
@@ -16,11 +17,6 @@ class UserRepository
     end
     return users
   end
-
-  # def create(user)
-  #   sql = 'INSERT INTO users (email, password) VALUES ($1, $2);'
-  #   result_set = DatabaseConnection.exec_params(sql, [user.email, user.password])
-  # end
   
   def create(email:, password_hash:)
     password_hash = BCrypt::Password.create(password_hash)
@@ -32,5 +28,17 @@ class UserRepository
       email: result[0]['email'],
       password_hash: result[0]['password_hash']
     )
+  end
+
+  def find_by_email(email)
+    sql = 'SELECT id, email, password FROM users WHERE email = $1;'
+    result_set = DatabaseConnection.exec_params(sql, [email])
+
+    user = User.new
+    user.id = result_set[0]['id']
+    user.email = result_set[0]['email']
+    user.password = result_set[0]['password']
+
+    return user
   end
 end
