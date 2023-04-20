@@ -19,4 +19,8 @@ class Application < Sinatra::Base
     # side note: if spaces table is empty then expect to not see anything on localhost
     # before adding entries with a create method / or post request form 
   end
+
+  get '/spaces/new' do
+    return erb(:spaces_new)
+  end
 end
