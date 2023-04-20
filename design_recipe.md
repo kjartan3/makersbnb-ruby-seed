@@ -16,8 +16,8 @@ You'll need to include:
   * any query parameters (passed in the URL)
   * or body parameters (passed in the request body)
 
-   * the HTTP method: GET
   * the path /requests/view
+   * the HTTP method: GET
   * any query parameters (passed in the URL)
   * or body parameters (passed in the request body)
 

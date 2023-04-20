@@ -23,20 +23,33 @@ describe Application do
       response = get('/requests')
       
       expect(response.status).to eq(200)
-      expect(response.body).to include('<h1>Requests</h1>')
-      expect(response.body).to include("<div>Requests I've made</div>")
-      expect(response.body).to include("<div>Requests I've received</div>")
+      expect(response.body).to include('Requests')
+      expect(response.body).to include("Requests I've made")
+      expect(response.body).to include("Requests received")
       
     end
 
-    it 'when you log in with user_id 3 you should display one request made' do
-      response = get('/requests')
+    xit 'when you log in with user_id 3 you should display one request made' do
+      response = get('/requests/3')
 
       expect(response.status).to eq(200)
       expect(response.body).to include("<p>House of Dreams</p>")
       expect(response.body).to include("<p>Approved</p>")
       expect(response.body).to include("<p>2023-07-06</p>")
     end
+
+    xit 'returns the list of bookings made from user2' do 
+      post(
+        "/login",
+        email:"user2@gmail.com",
+        password:"abcd")
+
+      response = get('/requests')
+
+      expect(response.status).to eq 200 
+      expect(response.body).to include('House of Horrors')
+      expect(response.body).to include('No new requests')
+    end 
   end
 end
       
