@@ -10,6 +10,16 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
+  # def reset_users_table
+  #   seed_sql = File.read('spec/seeds/tables_seeds.sql')
+  #   connection = PG.connect({ host: '127.0.0.1', dbname: 'makersbnb_test' })
+  #   connection.exec(seed_sql)
+  # end
+
+  # before(:each) do
+  #   reset_users_table
+  # end
+
 
   context 'GET /' do
     it 'should display signup as the homepage' do
@@ -45,26 +55,31 @@ describe Application do
 
   context 'POST /' do
     it 'creates a new user' do
-      response = post('/', params: { email: 'user@example.com', password: 'teddy' }) # <-- added this
+      response = post('/', email: 'user5@gmail.com', password: '123qwerty') # <-- added this
 
       expect(response.status).to eq(302) # <-- 302 used for redirect response (IF NEEDED)
-      expect(user_repository.new.all.length).to eq(4)
-      expect(user_repository.new.all.last.email).to eq('user@example.com')
-      expect(user_repository.new.all.last.password).to eq('teddy')
+      expect(UserRepository.new.all.length).to eq(5)
+      expect(UserRepository.new.all.last.email).to eq("user5@gmail.com")
+      expect(UserRepository.new.all.last.password).to eq('123qwerty')
     end
-  end   # ^ issue with database auto-rolling back to original number, so test expectation isnt consistent.
-        # additionally, solution to fixing reset_table issue in database was suggested in rspec test...
-        # To do this, first update your `reset_tables.rb` file to include the column:
-        #   def reset_tables(db) # Add to this existing method
-        #     # ...
-        #     db.run("DROP IF EXISTS TABLE ;")
-        #     db.run("CREATE TABLE  (id SERIAL PRIMARY KEY, ...);") # Include your column here
-        #     # ...
-        #   end
-        # Then run:
-        #   ruby reset_tables.rb
+  end  
 
-
+  # context "POST /peeps" do
+  #   it "adds a new peep to the database" do
+  #     # creates a user with a hashed password
+  #     response = post("/signup", name: 'Elton John', email: 'elton@john.com', username: 'rocketman', password: 'yellowbrickroad')
+  #     expect(response.status).to eq 200
+  #     expect(response.body).to include 'Sign up successful!'
+  #     # logs that user in
+  #     response = post("/login", email: 'elton@john.com', password: 'yellowbrickroad')
+  #     expect(response.status).to eq 200
+  #     expect(response.body).to include '<h1>Log in successful!</h1>'
+  #     # creates a peep with that user
+  #     response = post("/peeps", time: '2023-04-12 11:11:00', content: 'Making Peeps', user_id: '3')
+  #     expect(response.status).to eq 200
+  #     expect(response.body).to include 'New Peep created!' # add peep content to success page
+  #   end
+  # end
 
   
         

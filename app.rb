@@ -3,6 +3,7 @@ require 'bcrypt'
 require 'sinatra'
 require 'sinatra/base'
 require 'sinatra/reloader'
+require_relative 'lib/user_repository.rb'
 
 
 class Application < Sinatra::Base
@@ -12,7 +13,7 @@ class Application < Sinatra::Base
  
   # establishes database connection 
   conn = PG.connect(
-    dbname: 'makersbnb_test', 
+    dbname: 'makersbnb', 
     host: '127.0.0.1'
   )
 
