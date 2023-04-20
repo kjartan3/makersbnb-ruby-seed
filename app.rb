@@ -27,7 +27,7 @@ class Application < Sinatra::Base
     password = params[:password]
   
     # Insert user data into the database
-    conn.exec_params("INSERT INTO users (email, password) VALUES ($1, $2)", [email, password])
+    DatabaseConnection.exec_params("INSERT INTO users (email, password) VALUES ($1, $2)", [email, password])
   
     # Redirect to success page
     redirect '/sign_up_confirmation'

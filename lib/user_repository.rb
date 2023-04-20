@@ -34,6 +34,8 @@ class UserRepository
     sql = 'SELECT id, email, password FROM users WHERE email = $1;'
     result_set = DatabaseConnection.exec_params(sql, [email])
 
+    return nil if result_set.ntuples.zero?
+
     user = User.new
     user.id = result_set[0]['id']
     user.email = result_set[0]['email']
