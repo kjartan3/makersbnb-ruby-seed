@@ -1,16 +1,7 @@
 require "spec_helper"
 require "rack/test"
-require_relative '../../app.rb'
+require_relative '../../app'
 require 'json'
-
-
-# TEST NOT WORKING,   error message kept saying that it couldn't connect to to the test date:
-# Error message:
-# Refusing to connect to the dev database in test mode.
-# For your safety, when the tests are running this class will refuse
-# to connect to a database unless its name ends with `_test`.
-# You tried to connect to the database `makersbnb`.
-# This is probably a problem with your setup.
 
 
 describe Application do
@@ -18,8 +9,8 @@ describe Application do
 
   let(:app) { Application.new }
 
-  context 'GET /' do
-    it 'should get the homepage' do
+  context 'GET /spaces' do
+    it 'should get the list of spaces' do
       response = get('/spaces')
 
       expect(response.status).to eq(200)

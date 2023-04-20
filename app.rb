@@ -1,9 +1,9 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
 require_relative 'lib/database_connection'
-require_relative 'lib/space_repository.rb'
+require_relative 'lib/space_repository'
 
-DatabaseConnection.connect('makersbnb')
+DatabaseConnection.connect('makersbnb_test')
 
 
 class Application < Sinatra::Base
@@ -15,7 +15,7 @@ class Application < Sinatra::Base
   get '/spaces' do
     repo = SpaceRepository.new
     @spaces = repo.all
-    return erb :spaces
+    return erb(:spaces)
     # side note: if spaces table is empty then expect to not see anything on localhost
     # before adding entries with a create method / or post request form 
   end

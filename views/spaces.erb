@@ -2,27 +2,19 @@
 
 <% @spaces.each do |space| %>
   <div class="space">
-  <a href="/spaces/<%=space.id%>">
-    <h3><%=space.name%></h3>
+  <a href="/spaces/<%= space.id %>">
+    <h3><%= space.name %></h3>
   </a>
   <li>Description:</li>
-  <%=space.description%>  
-   <li>Available from:</li>
-  <%= space.available_start%>  
-   <li>Available to:</li>
-  <%= space.available_end%>  
+  <%= space.description %>  
+  <li>Available from:</li>
+  <%= space.available_start %>  
+  <li>Available to:</li>
+  <%= space.available_end %>  
   <li>Price per Night:</li>
-  <%=space.price%> 
-  <a href="/spaces/<%=space.id%>">Click here to view</a> 
-    <hr>
-  </div>
+  <%= space.price %> 
+  <a href="/spaces/<%= space.id %>">Click here to view</a> 
+  <hr>
+</div>
+
 <% end %>
-
-
-This is a comment: please delete.
-
-Our issue is here: 
-How do we create a hyperlink to specific records??
-is it  soemthing like:
-<a href="/spaces/<%=space.id%>">Click here to view</a> 
-
