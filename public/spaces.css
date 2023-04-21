@@ -1,0 +1,112 @@
+/* Body styles */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+  background-color: #f2f2f2;
+  margin: 0;
+}
+
+/* Header styles */
+h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin: 0;
+  padding: 1rem 0;
+  background-color: #333;
+  color: #fff;
+}
+
+/* Navigation styles */
+.navMenu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+}
+
+.navMenu a {
+  text-decoration: none;
+  color: #333;
+  padding: 0.5rem;
+  border: 1px solid #333;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.navMenu a:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: #333;
+}
+
+/* Button styles */
+.submit {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Space list styles */
+.space {
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: #fff;
+  border: 1px solid #333;
+  border-radius: 5px;
+}
+
+.space h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.space li {
+  margin-bottom: 0.5rem;
+  list-style: none;
+}
+
+.space li:first-child {
+  font-weight: bold;
+}
+
+.space a {
+  text-decoration: none;
+  color: #333;
+}
+
+.space a:hover {
+  text-decoration: underline;
+}
+
+/* Box styles */
+.box {
+  padding: 1rem;
+  margin: 1rem 0;
+  background-color: #fff;
+  border: 1px solid #333;
+  border-radius: 5px;
+}
