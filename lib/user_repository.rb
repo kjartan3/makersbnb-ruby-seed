@@ -1,4 +1,5 @@
-require 'user'
+require_relative 'user'
+
 
 class UserRepository 
   def all 

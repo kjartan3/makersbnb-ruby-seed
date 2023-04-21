@@ -5,15 +5,8 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require_relative 'lib/database_connection'
 require_relative 'lib/space_repository'
-
-DatabaseConnection.connect('makersbnb_test')
-
-
-require_relative 'lib/database_connection'
-require_relative 'lib/space_repository'
 require_relative 'lib/booking_repository'
 require_relative 'lib/user_repository'
-
 
 DatabaseConnection.connect('makersbnb_test')
 
@@ -21,6 +14,59 @@ class Application < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
     also_reload "lib/space_repository"
+  end
+  # establishes database connection
+  conn = PG.connect(
+    dbname: 'makersbnb_test',
+    host: '127.0.0.1'
+  )
+  enable :sessions
+  # Render the signup form
+  get '/' do
+    erb :sign_up
+  end
+  # Handle form submission
+  post '/' do
+    email = params[:email]
+    password = params[:password]
+    # Insert user data into the database
+    conn.exec_params("INSERT INTO users (email, password) VALUES ($1, $2)", [email, password])
+    # Redirect to success page
+    redirect '/sign_up_confirmation'
+  end
+  # Render success page
+  get '/sign_up_confirmation' do
+    erb :sign_up_confirmation
+  end
+  # get '/' do
+  #   return erb(:sign_up)
+  # end
+  get '/sessions/new' do
+    return erb(:login)
+  end
+
+  post '/sessions/new' do
+    email_address = params[:email_address]
+    password = params[:password]
+
+    user = UserRepository.new.find_by_email(email_address)
+
+    if user && user.password == password
+      session[:email_address] = user.email_address
+      #################################################################################################
+      # DO SOMETHING LIKE 
+      # repo = SpaceRepository.new
+      # @peeps = repo.all
+      # @user = user
+      # erb(:spaces)
+      #######################################################################################################
+
+    else
+      erb(:wrong_credentials)
+    end
+  end  
+  get '/confirmation' do
+    return erb(:sign_up_confirmation)
   end
 
   get '/spaces' do
@@ -48,11 +94,6 @@ class Application < Sinatra::Base
 
     redirect '/spaces'
   end
-
-  conn = PG.connect(
-    dbname: 'makersbnb_test',
-    host: '127.0.0.1'
-  )
 
   get '/requests' do
     repo = BookingRepository.new

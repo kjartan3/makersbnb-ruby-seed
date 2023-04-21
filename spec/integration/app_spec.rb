@@ -41,11 +41,18 @@ describe Application do
       expect(response.body).to include('House of Horrors')
       expect(response.body).to include('Haunted house with friendly ghost')
     end
+  end
 
   context "GET /requests" do
     it 'should display signup as the requests page' do
       response = get('/requests')
       
+      expect(response.status).to eq(200)
+      expect(response.body).to include('Sign up')
+      expect(response.body).to include('Sign up with your email and password')
+
+    end
+
     it 'displays the details of the space 2' do
       response = get('/spaces/2')
   
@@ -124,32 +131,29 @@ describe Application do
       expect(user_repository.new.all.last.email).to eq('user@example.com')
       expect(user_repository.new.all.last.password).to eq('teddy')
     end
-  end   # ^ issue with database auto-rolling back to original number, so test expectation isnt consistent.
-        # additionally, solution to fixing reset_table issue in database was suggested in rspec test...
-        # To do this, first update your `reset_tables.rb` file to include the column:
-        #   def reset_tables(db) # Add to this existing method
-        #     # ...
-        #     db.run("DROP IF EXISTS TABLE ;")
-        #     db.run("CREATE TABLE  (id SERIAL PRIMARY KEY, ...);") # Include your column here
-        #     # ...
-        #   end
-        # Then run:
-        #   ruby reset_tables.rb
+  end
+end  
 
+      
+    
 
-
-  
-        
+# ^ issue with database auto-rolling back to original number, so test expectation isnt consistent.
+  # additionally, solution to fixing reset_table issue in database was suggested in rspec test...
+  # To do this, first update your `reset_tables.rb` file to include the column:
+  #   def reset_tables(db) # Add to this existing method
+  #     # ...
+  #     db.run("DROP IF EXISTS TABLE ;")
+  #     db.run("CREATE TABLE  (id SERIAL PRIMARY KEY, ...);") # Include your column here
+  #     # ...
+  #   end
+  # Then run:
+  #   ruby reset_tables.rb
   #   xit 'save data to database' do
   #     post('/confirmation', email: 'user1@gmail.com', password: '12345')
   #     expect(last_response).to be_redirect
   #     follow_redirect!
   #     expect(last_request.path).to eq('/confirmation')
   #   end
-  # end 
-end
-      
-    
 
 
 

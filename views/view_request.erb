@@ -1,4 +1,11 @@
 <html>
+<nav class="navMenu">
+      <a href="/ ">Register</a>
+      <a href="/spaces">Spaces</a>
+      <a href="/sessions/new">Sign Out</a>
+      <a href="/requests">My Requests</a>
+      <div class="dot"></div>
+</nav>
   <head></head>
   <body>
     <h1>Request management: </h1>
@@ -8,7 +15,9 @@
         <form action="/requests/view" method="POST">
           <label for="status">Status:</label><br >
           <input type="button" name="status" value="Approved"><br >
+          <br>
           <input type="button" name="status" value="Rejected"><br >
+          <br>
           <input type="button" name="status" value="Pending"><br >
         </form>
   </body>

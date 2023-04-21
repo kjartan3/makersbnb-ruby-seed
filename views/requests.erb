@@ -1,12 +1,17 @@
 <html>
+<nav class="navMenu">
+      <a href="/ ">Register</a>
+      <a href="/spaces">Spaces</a>
+      <a href="/sessions/new">Sign Out</a>
+      <div class="dot"></div>
+</nav>
   <head></head>
   <body>
-    <h1>Requests</h1>
+    <h1>Guest Requests</h1>
     <div>Requests I've made</div>
       <% @requests.each do |booking| %>
         <a href="/requests/view<% booking.id %>"><%= 
         booking.id %><br ><%= booking.reservation_date %><p> Status: <%= booking.status %></p></a><br >
       <% end %>
-    <div>Requests I've received</div>
   </body>
 </html>
