@@ -1,52 +1,12 @@
-<!-- <html>
+<html>
   <head></head>
   <body>
     <h1>Requests</h1>
     <div>Requests I've made</div>
+      <% @requests.each do |booking| %>
+        <a href="/requests/view<% booking.id %>"><%= 
+        booking.id %><br ><%= booking.reservation_date %><p> Status: <%= booking.status %></p></a><br >
+      <% end %>
     <div>Requests I've received</div>
   </body>
-</html> -->
-
-<h1>Requests</h1>
-<div class="container">
-  <div class = "parent">
-    <h2 class="title"> Requests received: </h2>
-    <% if @inbound_bookings.length == 0 %>
-      No new requests received
-    <% else %>
-      <div>
-        <% @inbound_bookings.each do |booking| %>
-          <div class = "p1">
-            <!--It turned out that it has to be a single match for space.id == booking.space_id but when we look at tables
-            we saw that there are for the same space one is approved and one is rejected so the logic is quite difficult to 
-           understand. Ask if further information is needed. -->
-            <%= @user_spaces.select {|space| space.id == booking.space_id}.first.name%>
-            <br>
-            <%= booking.date %>
-            <br>
-            Status: <%= booking.status %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-</div>
-<div class = "parent">
-  <h2 class="title"> Requests I've made: </h2>
-  <% if @outbound_bookings.length == 0 %>
-    No new requests made
-  <% else %>
-    <div>
-      <% @outbound_bookings.each do |booking| %>
-        <div class="p1">
-          <%= @all_spaces.select {|space| space.id == booking.space_id}.first.name%>
-          <br>
-          <%= booking.date %>
-          <br>
-          Status: <%= booking.status %>
-        </div>
-        <% end %>
-      </div>
-    <% end %>
-</div>
-</div>
+</html>

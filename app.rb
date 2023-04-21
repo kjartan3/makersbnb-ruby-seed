@@ -13,11 +13,46 @@ class Application < Sinatra::Base
     register Sinatra::Reloader
   end
 
+  conn = PG.connect(
+    dbname: 'makersbnb_test',
+    host: '127.0.0.1'
+  )
+
   get '/requests' do
+    repo = BookingRepository.new
+    @requests = repo.all 
+    #maybe @bookings? 
     get_inbound_requests
     get_outbound_requests
     return erb(:requests)
   end
+
+  get "/requests/view" do
+    repo = BookingRepository.new
+    return erb(:view_request)
+  end
+
+  get "/requests/view/:id" do
+    repo = BookingRepository.new
+    id = params['id']
+    # @returned_booking = repo.find(booking_id)
+    # @returned_booking = 
+
+    result = conn.exec_params('SELECT name FROM spaces WHERE id = $1', ['id'])
+    booking = result.first
+    # @space = space_repo.find(params[:name])
+    #return erb :status { id: id, status: booking['status'], name: booking['name'] } # maybe change booking to space
+    # return erb(:view_request)
+  end # <-- conn.exec_param method included in this get request.
+
+  post "/requests/view" do
+    status = params['status'] # <-- maybe '@status'
+    id = params['id'] 
+    conn.exec_param('UPDATE bookings SET status = $1 WHERE id = $2', [status, id])
+  end
+
+
+
 
   private 
   def get_inbound_requests
