@@ -4,6 +4,7 @@ source "https://rubygems.org"
 
 # gem "rails"
 
+gem 'bcrypt', '~> 3.1.18'
 gem "sinatra", "~> 2.2"
 gem "sinatra-contrib", "~> 2.2"
 gem "pg", "~> 1.3"
@@ -13,3 +14,4 @@ gem "rack-test", "~> 1.1"
 gem "rspec", "~> 3.11"
 
 gem "rainbow", "~> 3.1"
+

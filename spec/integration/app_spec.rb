@@ -42,6 +42,10 @@ describe Application do
       expect(response.body).to include('Haunted house with friendly ghost')
     end
 
+  context 'GET /' do
+    it 'should display signup as the homepage' do
+      response = get('/')
+
     it 'displays the details of the space 2' do
       response = get('/spaces/2')
   
@@ -58,6 +62,63 @@ describe Application do
       
       response = get('/spaces')
       expect(response.body).to include('Cottage Green')
+      expect(response.body).to include('<form method="post" action="/">')
+      expect(response.body).to include('<input type="email" id="email" name="email" required>')
+      expect(response.body).to include('<input type="password" id="password" name="password" required>')
     end
   end
+
+  context 'GET /sessions/new' do
+    it 'should display login page' do
+      response = get('/sessions/new')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<form method="POST" action="/sessions/new">')
+      expect(response.body).to include('<input type ="text" name ="Email" required />')
+      expect(response.body).to include('<input type ="text" name ="Password" required />')
+    end
+  end
+
+  context 'GET /confirmation' do # sign up page
+    it 'should display account confirmation' do
+      response = get('/confirmation')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>You have now made an account with MakersBNB</h1>')
+      expect(response.body).to include('<a href="/sessions/new" class="button"> Click here to login </a>')
+    end
+  end
+
+  context 'POST /' do
+    it 'creates a new user' do
+      response = post('/', params: { email: 'user@example.com', password: 'teddy' }) # <-- added this
+
+      expect(response.status).to eq(302) # <-- 302 used for redirect response (IF NEEDED)
+      expect(user_repository.new.all.length).to eq(4)
+      expect(user_repository.new.all.last.email).to eq('user@example.com')
+      expect(user_repository.new.all.last.password).to eq('teddy')
+    end
+  end   # ^ issue with database auto-rolling back to original number, so test expectation isnt consistent.
+        # additionally, solution to fixing reset_table issue in database was suggested in rspec test...
+        # To do this, first update your `reset_tables.rb` file to include the column:
+        #   def reset_tables(db) # Add to this existing method
+        #     # ...
+        #     db.run("DROP IF EXISTS TABLE ;")
+        #     db.run("CREATE TABLE  (id SERIAL PRIMARY KEY, ...);") # Include your column here
+        #     # ...
+        #   end
+        # Then run:
+        #   ruby reset_tables.rb
+
+
+
+  
+        
+  #   xit 'save data to database' do
+  #     post('/confirmation', email: 'user1@gmail.com', password: '12345')
+  #     expect(last_response).to be_redirect
+  #     follow_redirect!
+  #     expect(last_request.path).to eq('/confirmation')
+  #   end
+  # end 
 end

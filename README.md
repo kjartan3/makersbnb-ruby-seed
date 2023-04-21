@@ -17,3 +17,5 @@ rspec
 rackup
 ```
 ....
+db names: makersbnb_test, makersbnb
+

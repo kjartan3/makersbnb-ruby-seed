@@ -2,7 +2,11 @@ TRUNCATE TABLE users RESTART IDENTITY CASCADE;
 TRUNCATE TABLE spaces RESTART IDENTITY CASCADE; 
 TRUNCATE TABLE bookings RESTART IDENTITY CASCADE; 
 
-INSERT INTO users (email, password) VALUES('user1@gmail.com', '12345'), ('user2@gmail.com', 'abcde'), ('user3@gmail.com', '67890'), ('user4@gmail.com', 'qwerty');
+INSERT INTO users (email, password) VALUES
+('user1@gmail.com', '12345'), 
+('user2@gmail.com', 'abcde'), 
+('user3@gmail.com', '67890'), 
+('user4@gmail.com', 'qwerty');
 
 INSERT INTO spaces (name, description, available_start, available_end, price, user_id) VALUES
 ('House of Horrors', 'Haunted house with friendly ghost', '2023-07-04', '2023-08-31', 100, 1), 
