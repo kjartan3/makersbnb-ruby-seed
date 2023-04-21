@@ -42,10 +42,10 @@ describe Application do
       expect(response.body).to include('Haunted house with friendly ghost')
     end
 
-  context 'GET /' do
-    it 'should display signup as the homepage' do
-      response = get('/')
-
+  context "GET /requests" do
+    it 'should display signup as the requests page' do
+      response = get('/requests')
+      
     it 'displays the details of the space 2' do
       response = get('/spaces/2')
   
@@ -86,7 +86,33 @@ describe Application do
       expect(response.status).to eq(200)
       expect(response.body).to include('<h1>You have now made an account with MakersBNB</h1>')
       expect(response.body).to include('<a href="/sessions/new" class="button"> Click here to login </a>')
+      expect(response.body).to include('Requests')
+      expect(response.body).to include("Requests I've made")
+      expect(response.body).to include("Requests received")
+      
     end
+     # until user is logged in, we cannot test this, so we need the login feature to be implemented first.
+    xit 'when you log in with user_id 3 you should display one request made' do
+      response = get('/requests/3')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include("<p>House of Dreams</p>")
+      expect(response.body).to include("<p>Approved</p>")
+      expect(response.body).to include("<p>2023-07-06</p>")
+    end
+    # until user is logged in, we cannot test this, so we need the login feature to be implemented first.
+    xit 'returns the list of bookings made from user2' do 
+      post(
+        "/login",
+        email:"user2@gmail.com",
+        password:"abcd")
+
+      response = get('/requests')
+
+      expect(response.status).to eq 200 
+      expect(response.body).to include('House of Horrors')
+      expect(response.body).to include('No new requests')
+    end 
   end
 
   context 'POST /' do
@@ -122,3 +148,9 @@ describe Application do
   #   end
   # end 
 end
+      
+    
+
+
+
+      

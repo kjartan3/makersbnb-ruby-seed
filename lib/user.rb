@@ -7,3 +7,6 @@ class User
   #   @password = password
   # end
 end
+class User
+  attr_accessor :id, :email, :password
+end

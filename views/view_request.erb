@@ -1,0 +1,15 @@
+<html>
+  <head></head>
+  <body>
+    <h1>Request management: </h1>
+      <p>ID: <%= @id %></p>
+      <p>Status <%= @status %></p>
+      <p>Name <%= @name %></p>
+        <form action="/requests/view" method="POST">
+          <label for="status">Status:</label><br >
+          <input type="button" name="status" value="Approved"><br >
+          <input type="button" name="status" value="Rejected"><br >
+          <input type="button" name="status" value="Pending"><br >
+        </form>
+  </body>
+</html>
